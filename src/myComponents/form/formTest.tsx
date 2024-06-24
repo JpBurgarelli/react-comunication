@@ -7,17 +7,25 @@ import * as zod from "zod";
 export const FormTest = () => {
  const schemaValidation = zod.object({
   nome: zod.string().min(1, { message: "Campo de nome obrigatorioXXX" }),
-  idade: zod.number().min(2, { message: "Campo de idade obrigatorioYY" }), 
+  idade: zod.number().min(2, { message: "Campo de idade obrigatorioYY" }),
  });
 
- const { register, handleSubmit, formState } = useForm({
-  resolver: zodResolver(schemaValidation),
- });
+ type TschemaValidation = zod.infer<typeof schemaValidation>;
+
+ const { register, handleSubmit, reset, formState } =
+  useForm<TschemaValidation>({
+   resolver: zodResolver(schemaValidation),
+   defaultValues: {
+    nome: "",
+    idade: 0,
+   },
+  });
 
  console.log(formState.errors, formState.errors.nome);
 
- function handleCreateNewUser(data: any) {
+ function handleCreateNewUser(data: TschemaValidation) {
   console.log(data);
+  reset();
  }
 
  return (
@@ -127,6 +135,27 @@ para integrar assim integrando o react hook form e o zod.
  const { register, handleSubmit, formState } = useForm({
   resolver: zodResolver(schemaValidation)
  });
+
+
+Integrando TypeScript no Form
+
+
+podemos crirar uma tipagem dinamica, de acordo
+com cada mudanca feita no schama do Zod e que INFERE a a estrutura
+do schama automaticamente.
+type TschemaValidation = zod.infer<typeof schemaValidation> 
+
+e depois passamos para a funcao que recebera os dados com essa 
+estrutra de  tipagem:
+ function handleCreateNewUser(data: TFormData) {}
+
+e tambem para o generic do useForm useForm<schemaValidation>, 
+para ele sugerir o autocomplete do defaultValues 
+useForm<TschemaValidation>({})
+e para o nosso objeto de configuracoes do useForm podemos passar uma 
+propriedade chamada defaultValues, que iremos definir qual vai ser o 
+valor inicial de cada campo do form.
+
 
 
 */
