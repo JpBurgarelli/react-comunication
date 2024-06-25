@@ -116,7 +116,8 @@ console.log(formState.errors)
 --------------------------------------------------------------
 
 
-1* Integrar o react hook form, com o register e o handleSubmit
+1* Integrar o react hook form no campus de imput e no campo de formulario, com 
+o register e o handleSubmit
 
 2* Criar o schema com as validacoes que iremos querer para os nossos campos
 const validationSchema = zod.object({
@@ -127,7 +128,7 @@ const validationSchema = zod.object({
 obs: utilizamos zod.object, pois o formato retornado 'e um objeto
 
 
-3* Adicionar um resover ao useForm, utilinzando o zodResolver e passando o schama criado pelo zod
+3* Adicionar um resolver ao useForm, utilizando o zodResolver e passando o schema criado pelo zod
 para integrar assim integrando o react hook form e o zod. 
   3.1 passar que lib de integraca que sera usado para resolver: zodResvolver()
   3.2 Passar regras de validao se ja criada zodResvolver(validationSchema)
